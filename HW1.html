@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0076)https://reed.cs.depaul.edu/lperkovic/courses/csc421/homeworks/Homework1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux
+      2.2.17-14 i686) [Netscape]">
+    <title>Algorithms</title>
+    <!--<base target="_top">--><base href="." target="_top">
+  </head>
+  <body bgcolor="#ffffff">
+    <div align="Center">
+      <h2> Homework 1 </h2>
+      <h3> Due by 4:30pm on September 16, 2020</h3>
+    </div>
+    <center>
+      <h3>
+        <hr></h3>
+    </center>
+    <h3>Viewings and Readings</h3>
+    <i>[Links to the slides, recordings, and quiz are on the </i><i><a href="https://reed.cs.depaul.edu/lperkovic/courses/csc421/">course
+
+        web site</a></i><i>.]</i><br>
+    Review the week 1 lecture slides.<br>
+    View the week 1 lecture recordings and the discussion session
+    recording.<br>
+    Complete the week 1 quiz.<br>
+    Read chapter 0 and sections 1.1-3 and 1.10 of the textbook.
+    <h3>Problems</h3>
+    Please write precise and concise answers. Your algorithm
+    descriptions should use either clear, concise, and precise plain
+    English or clear, concise, and precise pseudo-code that uses a style
+    similar to the pseudo-code in your textbook. Submit your solutions
+    to problems <b>1-3</b> via <a href="https://d2l.depaul.edu/">D2L</a>
+    and to problems <b>4-5</b> via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+    Please submit your work as a Word or PDF file or as scans/photos of
+    legible handwritten notes.<br>
+    <p> </p>
+    <p> </p>
+    <p> </p>
+    <p><b>1.</b>&nbsp;&nbsp;&nbsp; Prove using the definition of Big-O.
+      Make sure to choose correct values for c and n<sub>0</sub>.</p>
+    <ol type="a">
+      <li> 2n<sup>3</sup> + 5n<sup>2</sup> + 7n + 21 = O(n<sup>3</sup>)
+      </li>
+      <br>
+      <div>The function is O(n<sup>3</sup>) if its <= c*n<sup>3</sup> for some constant c and n >= n<sub>0</sub></div>
+      <div>For c=35 and n<sub>0</sub> = 1</div>
+      <div>2n<sup>3</sup> + 5n<sup>2</sup> + 7n + 21 is less than 2n<sup>3</sup> + 5n<sup>3</sup> + 7n<sup>3</sup> + 21n<sup>3</sup></div>
+      <div>And 2n<sup>3</sup> + 5n<sup>3</sup> + 7n<sup>3</sup> + 21n<sup>3</sup> === 35n<sup>3</sup></div>
+      <div>So that proves that 2n<sup>3</sup> + 5n<sup>2</sup> + 7n + 21 is also less than c*n3 so it is O(n<sup>3</sup>)</div>
+      <br>
+      <li> 2<sup>n+3</sup> = O(2<sup>n</sup> )
+      </li>
+      <br>
+      <div>The function is O(2<sup>n</sup>) if its <= c*2<sup>n</sup> for some constant c and n >= n<sub>0</sub></div>
+      <div>2<sup>n+3</sup> === 2<sup>3</sup> * 2<sup>n</sup> === 8 * 2<sup>n</sup></div>
+      <div>So if c=8 and n<sub>0</sub>=1</div>
+      <div>8 * 2<sup>n</sup> <= 8 * 2<sup>n</sup></div>
+      <br>
+      <li>If f<sub>1</sub>(n) = O(g<sub>1</sub>(n)) and f<sub>2</sub>(n)
+        = O(g<sub>2</sub>(n)) and g<sub>1</sub>(n) = O(g<sub>2</sub>(n))
+        then f<sub>1</sub>(n) + f<sub>2</sub>(n) = O(g<sub>2</sub>(n)) </li>
+        <br>
+        <div>The function is O(g<sub>2</sub>(n)) if its <= c*(g<sub>2</sub>(n)) for some constant c and n >= n<sub>0</sub></div>
+        <div>With the given O() we can assume</div>
+        <div>f<sub>1</sub>(n) <= C*g<sub>1</sub>(n)</div>
+        <div>f<sub>2</sub>(n) <= C*g<sub>2</sub>(n)</div>
+        <div>g<sub>1</sub>(n) <= C*g<sub>2</sub>(n)</div>
+        <div>From this we can add the addition and assume f<sub>1</sub>(n) + f<sub>2</sub>(n) <= C<sub>1</sub>*g<sub>1</sub>(n) + C<sub>2</sub>*g<sub>2</sub>(n)</div>
+        <div>Since g<sub>1</sub>(n) <= C*g<sub>2</sub>(n) we can say f<sub>1</sub>(n) + f<sub>2</sub>(n) <= C<sub>1</sub>*(C<sub>3</sub>*g<sub>2</sub>(n)) + C<sub>2</sub>*g<sub>2</sub>(n)</div>
+        <div>That can be reduced to 2*C<sub>1</sub>C<sub>2</sub>C<sub>3</sub>*g<sub>2</sub>(n)</div>
+        <div>And there exists some Constant C that would prove f<sub>1</sub>(n) + f<sub>2</sub>(n) <= C<sub>1</sub>*g<sub>1</sub>(n) + C<sub>2</sub>*g<sub>2</sub>(n) <= c*(g<sub>2</sub>(n))</div>
+    </ol>
+    <p><b>2.</b>&nbsp; A turnpike consists of N-1 stretches of road
+      between N toll stations; each stretch has an associated cost of
+      travel and the cost of travel between two toll stations is the sum
+      of the costs of the stretches traveled. For example,</p>
+    <blockquote>
+      <blockquote>
+        <p><tt>&nbsp; &nbsp;5 &nbsp; &nbsp; &nbsp;7 &nbsp; &nbsp;
+            &nbsp;4 &nbsp; &nbsp; &nbsp;9 &nbsp; &nbsp; <br>
+            |-----|-------|----|---------|<br>
+            1 &nbsp; &nbsp; 2 &nbsp; &nbsp; &nbsp; 3 &nbsp; &nbsp;4
+            &nbsp; &nbsp; &nbsp; &nbsp; 5<br>
+          </tt></p>
+      </blockquote>
+    </blockquote>
+    <p>represents a turnpike with N = 5 toll stations and 4 road
+      stretches with associated costs 5, 7, 4, and 9. The cost of
+      traveling from toll station 2 to toll station 5 is 20.</p>
+    <ol type="a">
+      <li>Design a O(N) time algorithm that computes the cost of going
+        between any two stations i and j using only an array of the
+        stretch costs.</li>
+      <pre>
+        calculateCost(tollStart , tollEnd)
+        {
+			cost = [5, 7, 4, 9];
+            int totalCost = 0;
+            for(int x = i ; x< j ; x++)
+            {
+                totalCost += cost[i];
+            }
+            return totalCost
+        }
+	</pre>
+      <li>Design a O(1) time algorithm that computes the cost of going
+        between any two stations i and j using a pre-computed table with
+        O(N<sup>2</sup> ) entries. What should this table contain? </li>
+      <li>Design a O(1) time algorithm that computes the cost of going
+        between any two stations i and j using a pre-computed array of
+        size O(N). What should this array contain?<br>
+      </li>
+    </ol>
+    <p><b>3.</b>&nbsp;&nbsp;&nbsp; Problem 9 parts (a) and (b) on page
+      49 of your textbook.</p>
+    <p><b>4.&nbsp;&nbsp;&nbsp; </b>Week 1 problem <i>4thought</i> on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      Submit your solution via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>
+      <b>after</b> your have gotten a account on Kattis <b>and</b>
+      registered for the course.<br>
+    </p>
+    <p><b>5.&nbsp;&nbsp;&nbsp; </b>Week 1 problem <i>Perket</i> on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      Submit your solution via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+  
+
+<div id="fpCE_version" style="display:none">8.3.3</div></body></html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0076)https://reed.cs.depaul.edu/lperkovic/courses/csc421/homeworks/Homework2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux
+      2.2.17-14 i686) [Netscape]">
+    <title>Algorithms</title>
+    <!--<base target="_top">--><base href="." target="_top">
+    <style type="text/css">
+</style>
+  </head>
+  <body bgcolor="#ffffff">
+    <div align="Center">
+      <h2> Homework 2 </h2>
+      <h3> Due by 4:30pm on September 23, 2020</h3>
+    </div>
+    <center>
+      <h3>
+        <hr></h3>
+    </center>
+    <h3>Viewings and Readings</h3>
+    <i> [Links to the slides, recordings, and quiz are on the </i><i><a href="https://reed.cs.depaul.edu/lperkovic/courses/csc421/">course
+
+
+
+
+
+
+
+
+
+        web site</a></i><i>.]</i><br>
+    Review the week 2 lecture slides.<br>
+    View the week 2 lecture recordings and the discussion session
+    recording.<br>
+    Complete the week 2 quiz.<br>
+    Read chapter 1 of the textbook (section 1.8 is optional).
+    <h3>Problems</h3>
+    Please write precise and concise answers. Your algorithm
+    descriptions should use either clear, concise, and precise plain
+    English or clear, concise, and precise pseudo-code that uses a style
+    similar to the pseudo-code in your textbook. Submit your solutions
+    to problems <b>1-4(a)</b> via <a href="https://d2l.depaul.edu/">D2L</a>
+    as a Word or PDF file or as scans/photos of legible handwritten
+    notes. Submit your solutions to problems <b>4(b)-5</b> via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    <br>
+    <br>
+    <b>1.</b>&nbsp;&nbsp;&nbsp; Use recursion trees to solve the
+    following recurrences. You may assume that T(1) = O(1).<br>
+    <p>&nbsp;&nbsp;&nbsp; (a) T(n) = 2T(n/3) + n</p>
+    <img style="height: 20%;" src='./2tn3.png'>
+    <p>&nbsp;&nbsp;&nbsp; (b) T(n) = 3T(n/3) + n </p>
+    <img style="height: 20%;" src='./3tn3.png'>
+    <p>&nbsp;&nbsp;&nbsp; (c) T(n) = 4T(n/3) + n</p>
+    <img style="height: 20%;" src='./4tn3.png'>
+    <b><br>
+      2.</b>&nbsp;&nbsp;&nbsp; Let A[1..n] and B[1..n] be two sorted
+    arrays. We can easily output the k-th smallest element in A in
+    Theta(1) time by just outputing A[k]. Similarly, we can find the
+    k-th smallest element in B. Give a O(log k) time divide-and-conquer
+    algorithm to find the k-th smallest element overall, i.e. the k-th
+    smallest in the union of A and B. Explain why your algorithm works.
+    You can assume that all elements in A and B are different and that k
+    is no greater than n. (Hint: get inspiration from binary search.)<br>
+    <br>
+
+    <b><br>
+      3.</b>&nbsp;&nbsp;&nbsp; Given an array X of N real numbers we
+    would like to find the maximum sum of entries found in any subarray
+    of X. For instance, if N = 10 and X[1..10]&nbsp; is<br>
+    <p class="tab">
+      <table cellspacing="2" cellpadding="2" border="2" width="250">
+        <tbody>
+          <tr>
+            <td align="center" valign="top"><tt>1</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>2</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>3</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>4</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>5</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>6</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>7</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>8</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>9</tt><tt><br>
+              </tt></td>
+            <td align="center" valign="top"><tt>10</tt><tt><br>
+              </tt></td>
+          </tr>
+          <tr>
+            <td valign="top"><tt>&nbsp;31</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>-41</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>&nbsp;59</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>&nbsp;26</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>-53</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>&nbsp;58</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>&nbsp;97</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>-93</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>-23</tt><tt><br>
+              </tt></td>
+            <td valign="top"><tt>&nbsp;84</tt><tt><br>
+              </tt></td>
+          </tr>
+        </tbody>
+      </table>
+    </p>
+    then the answer is <tt>187</tt>, which is the sum of entries <tt>59</tt>,
+    <tt>26</tt>, <tt>-53</tt>, <tt>58</tt>, <tt>97</tt> in the
+    "maximum subarray" <tt>X[3..7]</tt>. The problem is easy when all
+    the entries are positive -- the maximum subarray is the entire input
+    vector. The rub comes when some of the numbers are negative: should
+    we include a negative number in hopes that the positive numbers to
+    its sides will compensate for its negative contribution? Of course,
+    if the entries are all negative then the maximum subarray is the
+    empty subarray and zero should be returned. Design an O(n log n)
+    divide and conquer algorithm for this problemand describe it using
+    (the textbook style) pseudo-code. Explain why your algorithm works
+    and justify your running time analysis.<br>
+    <br>
+    (Hint: Divide the problem in half and solve the left and right
+    subproblem recursively. This will find the maximum subarrays
+    contained in the left and right subproblems, but it will overlook
+    subarrays that start in the left subproblem and end in the right
+    subproblem. How do you find the maximum such subarray? You must do
+    this in O(n) time in order to achive the O(n log n) running time for
+    the whole algorithm.)<br>
+    <p>
+    <pre>
+      Recursively
+        base case is only one element in the array, just return that element
+        Divide the array in half 
+        Compare the left sum, the right sum and a combination of the left sum + right sum (So after the base case the next comparison would be the base case of the left, the base case of the right and a combination of the base cases)
+        The left sum is the resursive return on the left side of the array, the right sum is the recursive return of the right side
+        The max of all the recursive calls will be the absolute max of the array
+
+      Since each recursive call is n/2 of the previous we know that this is O(log(n)) by drawing out a recursive tree
+      <img style="height: 20%;" src='./2tn2.png'>
+    </pre>
+      <b><br>
+        4.</b>&nbsp;&nbsp;&nbsp; Problem 13 page 51 in your textbook.<br>
+        <div>An inversion in an array A[1 .. n] is a pair of indices (i, j) such that i < j and
+          A[i] > A[ j]. The number of inversions in an n-element array is between 0
+          (if the array is sorted) and
+          (n/2)
+          (if the array is sorted backward). Describe
+          and analyze an algorithm to count the number of inversions in an n-element
+          array in O(n log n) time. [Hint: Modify mergesort.]</div>
+          <pre>
+            Basically do a mergesort but keep track of the number of times the sort needs to rearrange indexes
+            Divide array in half and recursively run on left half and right half
+            Keep halfing until the base case of one element in the array
+            Merge the left half and the right half
+            While merging check if left index is greater than right, if it is increment a counter
+            Return the counter from the merge step and add it together with all other recurcive merge steps that were called
+
+            This is just a merge sort with an extra linear step of incrementing a counter so we know this is O(nlogn)
+          </pre>
+    </p>
+    <p><b><br>
+        5.&nbsp;&nbsp;&nbsp; </b>Week 2 problem <i>batmanacci</i> on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.</p>
+    <p>&nbsp;&nbsp;&nbsp; (a)&nbsp; Describe the solution for inputs N
+      and K using a recursive formula or pseudo-code and analyze the
+      running time of your algorithm <br>
+    </p>
+    <pre>
+      Since [n] is [n-1] + [n-2] we know if the length of k is greater than the length of [n-2] then k is the [k-length[n-2]] element in [n-1]
+      We can recursively loop through this logic of shifting the string number and character index until we get the the base case where k = length of string number and depending on the index of the string number we can get the letter since we know the first two strings
+      
+      def batmanacci(string_number, character_index):
+        if string_number == 1:
+          return "N"
+        elif string_number == 2:
+            return "A"
+
+        else:
+            while string_number > 2:
+                if character_index > fibNumbers[string_number - 2]:
+                    character_index -= fibNumbers[string_number - 2]
+                    string_number -= 1
+                else:
+                    string_number -= 2
+                return batmanacci(string_number, character_index)
+    </pre>
+    <p>&nbsp;&nbsp;&nbsp; (b)&nbsp; Implement your solution using your
+      prefered language and submit your implementation via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+    <p><b><br>
+        6.</b>
+      
+      &nbsp;&nbsp;&nbsp; <b>[Optional]</b> Week 2 problem <i>closestpairs2</i>
+      on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      Submit your solution via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      NOTE: Unfortunately, the CPU time limit for this problem is very
+      tight and penalizes slower executing languages... My Python
+      solution got a "Time Limit Exceeded" error whereas a C++ solution
+      passed even though they both used the same algorithm. So, either
+      use a "fast language" like C++, C, Rust, ... or be willing to
+      accept that the judge will reject your correct solution...<br>
+    </p>
+  
+
+<div id="fpCE_version" style="display:none">8.3.4</div></body></html>

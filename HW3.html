@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0076)https://reed.cs.depaul.edu/lperkovic/courses/csc421/homeworks/Homework3.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux
+      2.2.17-14 i686) [Netscape]">
+    <title>Algorithms</title>
+    <!--<base target="_top">--><base href="." target="_top">
+  </head>
+  <body bgcolor="#ffffff">
+    <div align="Center">
+      <h2> Homework 3 </h2>
+      <h3> Due by 4:30pm on September 30, 2020</h3>
+    </div>
+    <center>
+      <h3>
+        <hr></h3>
+    </center>
+    <h3>Viewings and Readings</h3>
+    <i> [Links to the slides, recordings, and quiz are on the </i><i><a href="https://reed.cs.depaul.edu/lperkovic/courses/csc421/">course
+
+
+
+
+
+
+
+
+
+        web site</a></i><i>.]</i><br>
+    Review the week 3 lecture slides.<br>
+    View the week 3 lecture recordings and the discussion session
+    recording.<br>
+    Complete the week 3 quiz.<br>
+    Read sections 2.1-4 of the textbook.
+    <h3>Problems</h3>
+    Please write precise and concise answers. Your algorithm
+    descriptions should use either clear, concise, and precise plain
+    English or clear, concise, and precise pseudo-code that uses a style
+    similar to the pseudo-code in your textbook. Submit your solutions
+    to problems <b>1-3(a)</b> via <a href="https://d2l.depaul.edu/">D2L</a>
+    as a Word or PDF file or as scans/photos of legible handwritten
+    notes. Submit your solutions to problems <b>3(b)-4</b> via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    <br>
+    <br>
+    <b>1.</b>&nbsp;&nbsp;&nbsp; Problem 31 page 61 in your textbook.<b><br>
+      <br>
+      <div>
+        Suppose we are given an array A[1 .. n] of n distinct integers, which could be
+        positive, negative, or zero, sorted in increasing order so that A[1] < A[2] <
+        ... < A[n].
+      </div>
+      <br>
+      <div>a. Describe a fast algorithm that either computes an index i such that
+        A[i] = i or correctly reports that no such index exists.
+      </div>
+      <pre>
+        You can use binary search to solve this problem.
+        Taking array A as input
+        Recursively:
+        Get the midpoint of A and set it to a var
+        Base case is first check if A[i] = i, if it does return and thats our solution
+        If it doesn't and the array is size one return that no index of A[i] = i could be found
+
+        If A[mid index] < mid index, that means we can ignore all indexes on the left half of A so recuresivly call the funtion for the right half of A, A[mid] -> A[length of A]
+        If A[mid index] > mid mid index, that means we can ignore all indexes on the right half of A so recuresivly call the funtion for the left half of A, A[0] -> A[mid]
+
+        This will recuresivly keep going until either a A[i] = i is found or no index matches that criteria
+      </pre>
+
+      <div>
+        b. Suppose we know in advance that A[1] > 0. Describe an even faster
+        algorithm that either computes an index i such that A[i] = i or correctly
+        reports that no such index exists. [Hint: This is really easy.]
+      </div>
+      
+      <pre>
+        If A[1] > 1 that means that there is no solution, since A[i] has to be an integer greater than A[i-1].
+        If A[1] = n where i > 1 then at a minimum for the rest of A A[i] = i+n
+
+        So the solution is to just check if A[1] = 1, if it does return one
+        Else there is no solution
+      </pre>
+      <br>
+      2.</b>&nbsp;&nbsp;&nbsp; Problem 1 page 93 in your textbook. Give
+    <i>two</i> solutions for <i>each</i> part (a) and (b): you write
+    the first solution by appropriately modifying the pseudo-code on
+    page 78 of the textbook (that algorithm does not use pruning) and
+    you should write the second solution my appropriately modifying the
+    pseudo-code on Week 3 slide 64 (that algorithm does use pruning).<br>
+    <br>
+    <div>
+      1. Describe recursive algorithms for the following generalizations of the SubsetSum problem
+    </div>
+    <div>
+      a.  <b>Given an array X[1 .. n] of positive integers and an integer T, compute
+      the number of subsets of X whose elements sum to T.</b>
+    </div>
+    <pre>
+      <b>SOLUTION 1:</b>
+        SubsetSum(X, i, T):
+        if T = 0
+          return 1
+        else if T < 0 or i = 0
+          return 0
+        else
+          with <- SubsetSum(X, i - 1, T - X[i]) {{Recurse!}}
+          wout <- SubsetSum(X, i - 1, T) {{Recurse!}}
+          return with + wout
+
+      <b>SOLUTION 2:</b>
+        SubsetSum(S[1..n], T, X[1..n], r)
+          if r = n+1 then
+            return 1
+          X[r] <- 0
+          if Feasible(S, T, X, r) then
+            without = SubsetSum(S, T, X, r+1)
+          X[r] <- 1
+            if Feasible(S, T, X, r) then
+            with = SubsetSum(S, T, X, r+1)
+          return with + without;
+
+        Feasible(S[1..n], T, X[1..n], r)
+          S1 <- SUM(i=1->r)X[i]S[i]
+          if S1 > T then
+            return false
+          S2 <- SUM(i=r+1 -> n) S[i]
+          if S1 + S2 < T then
+            return false
+          return true
+    </pre>
+    <div>
+      b.  <b>Given two arrays X[1 .. n] and W[1 .. n] of positive integers and an
+      integer T, where each W[i] denotes the weight of the corresponding
+      element X[i], compute the maximum weight subset of X whose elements
+      sum to T. If no subset of X sums to T, your algorithm should return -infinity</b>
+    </div>
+    <pre>
+      <b>SOLUTION 1:</b>
+        SubsetSum(X, W, i, T):
+        if T = 0
+          return X[i] * W[i]
+        else if T < 0 or i = 0
+          return 0
+        else
+          with <- SubsetSum(X, i - 1, T - X[i]) {{Recurse!}}
+          wout <- SubsetSum(X, i - 1, T) {{Recurse!}}
+
+          // not positive on this implementation but we need to sum all the members of a valid subset
+          if with > 0 with = with + X[i] * W[i]
+          if wout > 0 wout = wout + X[i] * W[i]
+          return max(with, wout)
+
+      <b>SOLUTION 2:</b>
+        SubsetSum(S[1..n], W[1...n], T, X[1..n], r)
+          if r = n+1 then
+            return S[r-1] * W[r-1]
+          X[r] <- 0
+          if Feasible(S, W, T, X, r) then
+            without = SubsetSum(S, W, T, X, r+1)
+          X[r] <- 1
+            if Feasible(S, T, X, r) then
+            with = SubsetSum(S, W, T, X, r+1)
+            
+          // not positive on this implementation but we need to sum all the members of a valid subset
+          if with > 0 with = with + S[r-1] * W[r-1]
+          if wout > 0 wout = wout + S[r-1] * W[r-1]
+          return max(with, wout)
+
+        Feasible(S[1..n], T, X[1..n], r)
+          S1 <- SUM(i=1->r)X[i]S[i]
+          if S1 > T then
+            return false
+          S2 <- SUM(i=r+1 -> n) S[i]
+          if S1 + S2 < T then
+            return false
+          return true
+    </pre>
+    <p><b> 3.&nbsp;&nbsp;&nbsp; </b>Week 3 problem <i>geppetto</i> on
+      <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.</p>
+    <p>&nbsp;&nbsp;&nbsp; (a)&nbsp; Describe the backtracking algorithm
+      for the <i>geppetto</i> problem. Make sure you describe precisely
+      how partial solutions are represented and how they are pruned.<br>
+    </p>
+    <pre>
+      We can recursively call a function to make pizzas to check all possible valid combinations
+      The base case is when we reach the last ingredient which means weve made a decision of to include or not to include all previous ingredients
+      In the function check if the next pizza would be valid if the next ingredient is added, we can do this by saving all invalid combinations in a dictionary and looking up the one to be added's bad pairings
+      If the next ingredient is valid we can mark that ingredient is added in an array of n ingredients 1's and 0's, then add one to the pizza counter, then recuresivly call the next ingredient
+      If the next ingredient is invalid we can skip the step of recursively calling the next ingredient since all future ones will also be invalid
+      Then either way we set the ingredient to not used and recuresivly call the next ingredient so we test all combinations where we dont use that ingredient too
+
+
+      The partial solution is checking whether the next ingredient would create an invalid pizza or not.  It its valid we can add one to the total pizzas counter then check if the next ingredient can be added or not, if its not valid we don't use that ingredient and try the next one
+
+      If the ingredient would cause the pizza to be invalid, we can prune the rest of the recursion that would happen with that ingredient
+    </pre>
+    <p>&nbsp;&nbsp;&nbsp; (b)&nbsp; Implement your solution using your
+      preferred language and submit your implementation via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+    <p><b><br>
+        4.</b>&nbsp;&nbsp;&nbsp; Week 3 problem <i>dancerecital</i> on
+      <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      Submit your solution via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+    <p><br>
+    </p>
+    <br>
+  
+
+<div id="fpCE_version" style="display:none">8.4.3</div></body></html>

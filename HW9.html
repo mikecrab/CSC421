@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<!-- saved from url=(0076)https://reed.cs.depaul.edu/lperkovic/courses/csc421/homeworks/Homework9.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="GENERATOR" content="Mozilla/4.76 [en] (X11; U; Linux
+      2.2.17-14 i686) [Netscape]">
+    <title>Algorithms</title>
+    <!--<base target="_top">--><base href="." target="_top">
+  </head>
+  <body bgcolor="#ffffff">
+    <div align="Center">
+      <h2> Homework 9 </h2>
+      <h3> Due by 4:30pm on November 11, 2020</h3>
+    </div>
+    <center>
+      <h3>
+        <hr></h3>
+    </center>
+    <h3>Viewings and Readings</h3>
+    <i> [Links to the slides, recordings, and quiz are on the </i><i><a href="https://reed.cs.depaul.edu/lperkovic/courses/csc421/">course
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        web site</a></i><i>.]</i><br>
+    Review the week 9 lecture slides.<br>
+    View the week 9 lecture recordings and the discussion session
+    recording.<br>
+    Complete the week 9 quiz.<br>
+    Read sections 6.5-6, chapter 7, and sections 8.1-6 of the textbook
+    (except the more challenging "heart" parts; section 8.7 is
+    optional).
+    <h3>Problems</h3>
+    Please write precise and concise answers. Except where explicitly
+    indicated, your algorithm descriptions should use either clear,
+    concise, and precise plain English or clear, concise, and precise
+    pseudo-code that uses a style similar to the pseudo-code in your
+    textbook. Submit your solutions to problems <b>1(a), 2(a), and 3(a)</b>
+    via <a href="https://d2l.depaul.edu/">D2L</a> as a Word or PDF file
+    or as scans/photos of legible handwritten notes. Submit your
+    solutions to problems <b>1(b), 2(b)</b> and <b>3(b)</b> via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    <br>
+    <br>
+    <b>1</b><b>.</b>&nbsp;&nbsp;&nbsp; Week 9 problem <i>builddeps</i>
+    on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+    <br>
+    <p><b>(a)</b>&nbsp; Explain how DFS can be used to solve this
+      problem. Make sure you describe what needs to be done to print the
+      files in the right order.<br>
+    </p>
+    <br>
+    <pre>
+      If we organize the graoh so every dependency has a directed edge to what depends on it, we then just need to find the topological order of the graph.
+      This will ensure every vertex is printed before any vertex it has a directed edge to. 
+      We can get topological by tracking the postorder of a dfs from a vertex and reversing that postorder
+    </pre>
+    <b>(b)</b> Use your insight from <b>(a)</b> to implement a solution
+    using your preferred language and submit your implementation via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+    <p><b><br>
+        2.</b>&nbsp;&nbsp;&nbsp; Week 9 problem <i>reversingroads</i>
+      on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      <br>
+      &nbsp;&nbsp;&nbsp; <b><br>
+        (a)</b>&nbsp; Explain how Kosaraju-Shamir's strongly connected
+      components algorithm can be used to solve this problem. Make sure
+      you also describe how to find the edge to reverse, if it is
+      necessary and if it exists, that makes the case valid.<br>
+    </p>
+    <br>
+    <pre>
+      We can use Kosaraju-Shamir's algorithm to count the number of strongly connected components.  If theres only one that means the problem is solved.
+      If there's more than one, there's only one way to make the graph valid in one edge reversal.
+      There has to be exactly one sink and one source.  If there's more than one of either then it's impossible to reverse one edge to get rid of multiple sinks/sources.
+      If there is one sink and one source, we then need there to be an edge between the sink and source.  If we want to get rid of the sink and source, the only way would be to update their own edges, and if we only have one edge reversal it has to be one edge for the both of them
+      If the above checks are passed then the problem can be solved by reversing the road from the source to the sink.
+
+      Theres an edge case where we also need to check the the sink has multiple roads connected to it.
+      If there are only two vertexes and one road, that's one sink, one source, and a road connecting them but the reverse will do nothing but switch the sink to the source and vice versa.
+    </pre>
+    <p><b>(b)</b> <b>[One of 2(b) and 3(b) is optional]</b> Use your
+      insights from <b>(a)</b> to implement a solution using your
+      preferred language and submit your implementation via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+    <br>
+    <p><b> 3.</b>&nbsp;&nbsp;&nbsp; Week 9 problem <i>kitchen</i> on <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.
+      <br>
+    </p>
+    <p><b>(a)</b>&nbsp; Explain how Dijkstra's algorithm can be used to
+      solve this problem. Since no graph is described explicitly in the
+      problem, describe the graph that Dijkstra's algorithm is applied
+      to and how its nodes and edges are generated. <br>
+    </p>
+    <br>
+    <pre>
+      We can define the graph as vertexes being the current state of the cups and the edges being the amount of liquid poured to get to the next state.
+      Since one attribute of Dijkstra's algorithm is that the current node off the priority queue is the shorest distance, we don't need to build the whole graph, we just need to build the graph until we find the state we want.
+      So we dynamically build the graph starting the the first cup being full then adding vertexes for each state we can achieve by pouring the liquid to the other cups and adding edges by the amount of liquid poured.
+      We keep going through Dijkstra's algorithm, marking the min distance to each state until we reach the state which contains our target for the first cup and the distance to that state is our answer.
+    </pre>
+    <p><b>(b) [One of 2(b) and 3(b) is optional]</b>&nbsp; Use your
+      insights from <b>(a)</b> to implement a solution using your
+      preferred language and submit your implementation via <a href="https://depaul.kattis.com/courses/CSC421/Fall2020">Kattis</a>.<br>
+    </p>
+    <br>
+  
+
+<div id="fpCE_version" style="display:none">8.5.2</div></body></html>
